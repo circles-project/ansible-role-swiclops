@@ -18,11 +18,12 @@
             {% if matrix_nginx_proxy_enabled %}
                 {# Use the embedded DNS resolver in Docker containers to discover the service #}
                 resolver 127.0.0.11 valid=5s;
-                set $backend "{{ matrix_nginx_proxy_proxy_uia_addr_with_container }}";
+                set $backend "{{ matrix_swiclops_hostname }}:{{ matrix_swiclops_port }}";
                 proxy_pass http://$backend;
             {% else %}
                 {# Generic configuration for use outside of our container setup #}
-                proxy_pass http://{{ matrix_nginx_proxy_proxy_uia_addr_sans_container }};
+                set $backend "http://127.0.0.1:{{ matrix_swiclops_port }}";
+                proxy_pass http://$backend;
             {% endif %}
 
             proxy_set_header Host $host;
