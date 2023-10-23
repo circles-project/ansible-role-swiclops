@@ -2,10 +2,12 @@ matrix:
   domain: "{{ matrix_domain }}"
   homeserver: "http://matrix-synapse:8008/"
 
+admin_backend:
+  shared_secret: "{{ matrix_synapse_ext_password_provider_shared_secret_auth_shared_secret }}"
+  username: "{{ matrix_swiclops_username }}"
+  password: "{{ matrix_swiclops_password }}"
+
 uia:
-  backend_auth:
-    type: "com.devture.shared_secret_auth"
-    shared_secret: "{{ matrix_synapse_ext_password_provider_shared_secret_auth_shared_secret }}"
   registration:
     shared_secret: "{{ matrix_synapse_registration_shared_secret }}"
     use_admin_api: true
@@ -85,17 +87,6 @@ uia:
     - path: "/devices/:deviceId"
       method: "PUT"
 
-admin:
-  versions:
-    - "v1"
-        
-#database:
-#  type: postgres
-#  hostname: localhost
-#  port: 5432
-#  username: swiclops
-#  password: hunter2
-#  database: swiclops
 database:
   type: sqlite
   filename: "{{ matrix_swiclops_sqlite_filename }}"
