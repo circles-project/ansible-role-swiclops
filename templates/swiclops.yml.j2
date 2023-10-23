@@ -17,6 +17,12 @@ uia:
   email:
     postmark:
       token: "{{ matrix_swiclops_postmark_token }}"
+{% if matrix_swiclops_mailchimp_enabled %}
+    mailchimp:
+      api_key: "{{ matrix_swiclops_mailchimp_api_key }}"
+      server: "{{ matrix_swiclops_mailchimp_server }}"
+      list_id: "{{ matrix_swiclops_mailchimp_list_id }}"
+{% endif %}
 {% if matrix_swiclops_policy_privacy_enabled or matrix_swiclops_policy_terms_enabled %}
   terms:
     policies:

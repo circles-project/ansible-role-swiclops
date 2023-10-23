@@ -35,6 +35,8 @@ matrix_swiclops_handle_login: true
 
 matrix_swiclops_privacy_policy_enabled: false
 
+matrix_swiclops_mailchimp_enabled: false
+
 matrix_swiclops_log_level: "debug"
 
 matrix_swiclops_uia_default_flows:
