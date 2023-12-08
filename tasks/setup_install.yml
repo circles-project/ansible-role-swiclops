@@ -44,7 +44,7 @@
 
 - name: Ensure Swiclops certificates installed
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/certs"
+    src: "{{ role_path }}/files/certs/"
     dest: "{{ matrix_swiclops_cert_dir_path }}"
     directory_mode: 0750
     mode: 0644
