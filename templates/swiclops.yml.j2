@@ -8,12 +8,34 @@ admin_backend:
   password: "{{ matrix_swiclops_password }}"
 
 uia:
+
   registration:
     shared_secret: "{{ matrix_synapse_registration_shared_secret }}"
-    use_admin_api: true
+
   bsspeke:
     curve: "curve25519"
     oprf_secret: "{{ matrix_swiclops_bsspeke_oprf_secret }}"
+
+{% if matrix_swiclops_appstore_enabled %}
+  app_store:
+    apps: 
+{% for app in matrix_swiclops_appstore_apps %}
+      - bundle_id: "{{ app.bundle_id }}"
+        name: "{{ app.name }}"
+        apple_id: {{ app.apple_id }}
+        secret: "{{ app.secret }}"
+{% endfor %}
+    products:
+{% for product in matrix_swiclops_appstore_products %}
+      - product_id: "{{ product.product_id }}"
+        level: {{ product.level }}
+        shareable: {{ product.shareable }}
+        quota: {{ product.quota }}
+{% endfor %}
+    environment: "{{ matrix_swiclops_appstore_environment }}"
+    grace_period_days: {{ matrix_swiclops_appstore_grace_period }}
+{% endif %}
+
   email:
     postmark:
       token: "{{ matrix_swiclops_postmark_token }}"
@@ -23,6 +45,7 @@ uia:
       server: "{{ matrix_swiclops_mailchimp_server }}"
       list_id: "{{ matrix_swiclops_mailchimp_list_id }}"
 {% endif %}
+
 {% if matrix_swiclops_policy_privacy_enabled or matrix_swiclops_policy_terms_enabled %}
   terms:
     policies:
@@ -43,10 +66,12 @@ uia:
           markdown_url: "{{ matrix_swiclops_policy_terms_markdown_url }}"
 {% endif %}
 {% endif %}
+
   default_flows:
 {% for flow in matrix_swiclops_uia_default_flows %}
     - {{ flow }}
 {% endfor %}
+
   routes:
 {% if matrix_swiclops_handle_login %}
     - path: "/login"
@@ -85,6 +110,7 @@ uia:
       method: "POST"
     - path: "/keys/device_signing/upload"
       method: "POST"
+
   passthru_endpoints:
     - path: "/devices"
       method: "GET"
