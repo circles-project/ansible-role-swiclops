@@ -14,6 +14,13 @@ matrix_swiclops_docker_image_force_pull: "{{ matrix_swiclops_docker_image.endswi
 matrix_swiclops_base_path: "{{ matrix_base_data_path }}/swiclops"
 matrix_swiclops_conf_dir_path: "{{ matrix_swiclops_base_path }}/config"
 matrix_swiclops_data_dir_path: "{{ matrix_swiclops_base_path }}/data"
+matrix_swiclops_cert_dir_path: "{{ matrix_swiclops_conf_dir_path }}/certs"
+
+matrix_swiclops_appstore_certs:
+  - "AppleComputerRootCertificate.cer"
+  - "AppleRootCA-G2.cer"
+  - "AppleIncRootCertificate.cer"
+  - "AppleRootCA-G3.cer"
 
 matrix_swiclops_systemd_required_services_list:
   - "docker.service"

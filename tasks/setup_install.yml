@@ -18,6 +18,14 @@
     owner: "{{ matrix_user_username }}"
     group: "{{ matrix_user_groupname }}"
 
+- name: Ensure Swiclops certificate path exists
+  ansible.builtin.file:
+    path: "{{ matrix_swiclops_cert_dir_path }}"
+    state: directory
+    mode: 0750
+    owner: "{{ matrix_user_username }}"
+    group: "{{ matrix_user_groupname }}"
+
 - name: Ensure Swiclops data path exists
   ansible.builtin.file:
     path: "{{ matrix_swiclops_data_dir_path }}"
@@ -30,6 +38,15 @@
   ansible.builtin.template:
     src: "{{ role_path }}/templates/swiclops.yml.j2"
     dest: "{{ matrix_swiclops_conf_dir_path }}/swiclops.yml"
+    mode: 0644
+    owner: "{{ matrix_user_username }}"
+    group: "{{ matrix_user_groupname }}"
+
+- name: Ensure Swiclops certificates installed
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/certs"
+    dest: "{{ matrix_swiclops_cert_dir_path }}"
+    directory_mode: 0750
     mode: 0644
     owner: "{{ matrix_user_username }}"
     group: "{{ matrix_user_groupname }}"

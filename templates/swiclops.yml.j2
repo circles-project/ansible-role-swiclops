@@ -34,6 +34,10 @@ uia:
 {% endfor %}
     environment: "{{ matrix_swiclops_appstore_environment }}"
     grace_period_days: {{ matrix_swiclops_appstore_grace_period }}
+    certs:
+{% for cert_filename in matrix_swiclops_appstore_certs %}
+      - "/etc/swiclops/certs/{{ cert_filename }}"
+{% endfor %}
 {% endif %}
 
   email:
