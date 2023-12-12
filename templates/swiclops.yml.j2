@@ -47,9 +47,12 @@ uia:
 {% for app_id in matrix_swiclops_playstore_app_ids %}
       - "{{ app_id }}"
 {% endfor %}
-    product_ids:
-{% for product_id in matrix_swiclops_playstore_product_ids %}
-      - "{{ product }}"
+    products:
+{% for product in matrix_swiclops_playstore_products %}
+      - subscription_id: "{{ product.subscription_id }}"
+        level: {{ product.level }}
+        shareable: {{ product.shareable }}
+        quota: {{ product.quota }}
 {% endfor %}
 {% endif %}
 
