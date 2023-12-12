@@ -17,7 +17,7 @@ uia:
     oprf_secret: "{{ matrix_swiclops_bsspeke_oprf_secret }}"
 
 {% if matrix_swiclops_appstore_enabled %}
-  app_store:
+  apple_app_store:
     apps: 
 {% for app in matrix_swiclops_appstore_apps %}
       - bundle_id: "{{ app.bundle_id }}"
@@ -37,6 +37,19 @@ uia:
     certs:
 {% for cert_filename in matrix_swiclops_appstore_certs %}
       - "/etc/swiclops/certs/{{ cert_filename }}"
+{% endfor %}
+{% endif %}
+
+{% if matrix_swiclops_playstore_enabled %}
+  google_play_store:
+    developer_id: "{{ matrix_swiclops_playstore_developer_id }}"
+    package_ids:
+{% for app_id in matrix_swiclops_playstore_app_ids %}
+      - "{{ app_id }}"
+{% endfor %}
+    product_ids:
+{% for product_id in matrix_swiclops_playstore_product_ids %}
+      - "{{ product }}"
 {% endfor %}
 {% endif %}
 
