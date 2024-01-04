@@ -1,6 +1,6 @@
 matrix:
   domain: "{{ matrix_domain }}"
-  homeserver: "http://{{ matrix_homeserver_container_url }}"
+  homeserver: "{{ matrix_homeserver_container_url }}"
 
 admin_backend:
   shared_secret: "{{ matrix_synapse_ext_password_provider_shared_secret_auth_shared_secret }}"
