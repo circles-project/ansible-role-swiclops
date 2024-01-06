@@ -148,7 +148,7 @@ database:
   username: "{{ matrix_swiclops_postgres_username }}"
   password: "{{ matrix_swiclops_postgres_password }}"
   hostname: "{{ matrix_swiclops_postgres_hostname }}"
-  port: "{{ matrix_swiclops_postgres_port }}"
+  port: {{ matrix_swiclops_postgres_port }}
   database: "{{ matrix_swiclops_postgres_database }}"
 {% endif %}
 
