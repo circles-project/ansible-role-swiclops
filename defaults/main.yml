@@ -27,7 +27,7 @@ matrix_swiclops_playstore_enabled: false
 
 matrix_swiclops_systemd_required_services_list: |
   {{
-    (["docker.service"])
+    (["docker.service", "matrix-synapse-reverse-proxy-companion.service", "matrix-synapse.service"])
     +
     ([devture_postgres_identifier ~ '.service'] if devture_postgres_enabled and matrix_swiclops_postgres_hostname == devture_postgres_connection_hostname else [])
   }}
