@@ -3,7 +3,7 @@
 # Tells whether this role had executed or not. Toggled to `true` during runtime.
 matrix_swiclops_role_executed: false
 
-matrix_swiclops_hostname: "swiclops"
+matrix_swiclops_hostname: "matrix-swiclops"
 matrix_swiclops_port: 8080
 matrix_swiclops_addr_with_container: "{{ matrix_swiclops_hostname }}:{{ matrix_swiclops_port }}"
 matrix_swiclops_addr_sans_container: "127.0.0.1:{{ matrix_swiclops_port }}"
