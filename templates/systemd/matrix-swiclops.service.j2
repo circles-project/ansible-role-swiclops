@@ -15,16 +15,19 @@ DefaultDependencies=no
 [Service]
 Type=simple
 Environment="HOME={{ devture_systemd_docker_base_systemd_unit_home_path }}"
-ExecStartPre=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} kill matrix-swiclops 2>/dev/null || true'
-ExecStartPre=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} rm matrix-swiclops 2>/dev/null || true'
+ExecStartPre=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} stop --time={{ devture_systemd_docker_base_container_stop_grace_time_seconds }} {{ matrix_swiclops_identifier }} 2>/dev/null || true'
+ExecStartPre=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} rm {{ matrix_swiclops_identifier }} 2>/dev/null || true'
 
-ExecStart={{ devture_systemd_docker_base_host_command_docker }} run --rm --name {{ matrix_swiclops_hostname }} \
+ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} create \
+			--rm \
+			--name={{ matrix_swiclops_identifier }} \
 			--log-driver=none \
 			--user={{ matrix_user_uid }}:{{ matrix_user_gid }} \
 			--cap-drop=ALL \
 			--read-only \
 			--tmpfs=/tmp:rw,noexec,nosuid,size={{ matrix_swiclops_tmp_directory_size_mb }}m \
-			--network={{ matrix_docker_network }} \
+			--network={{ matrix_swiclops_container_network }} \
+			--label-file={{ matrix_swiclops_base_path }}/labels \
 			--mount type=bind,src={{ matrix_swiclops_conf_dir_path }},dst=/etc/swiclops,ro \
 			--mount type=bind,src={{ matrix_swiclops_data_dir_path }},dst=/var/lib/swiclops \
 			{% for arg in matrix_swiclops_container_arguments %}
@@ -33,12 +36,18 @@ ExecStart={{ devture_systemd_docker_base_host_command_docker }} run --rm --name 
 			{{ matrix_swiclops_docker_image }} \
 			serve --auto-migrate --log {{ matrix_swiclops_log_level }} --hostname 0.0.0.0 --port {{ matrix_swiclops_port }}
 
-ExecStop=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} kill matrix-swiclops 2>/dev/null || true'
-ExecStop=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} rm matrix-swiclops 2>/dev/null || true'
-ExecReload={{ devture_systemd_docker_base_host_command_docker }} exec matrix-swiclops /bin/sh -c 'kill -HUP 1'
+{% for network in matrix_swiclops_container_additional_networks %}
+ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} network connect {{ network }} {{ matrix_swiclops_identifier }}
+{% endfor %}
+
+ExecStart={{ devture_systemd_docker_base_host_command_docker }} start --attach {{ matrix_swiclops_identifier }}
+
+ExecStop=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} stop --time={{ devture_systemd_docker_base_container_stop_grace_time_seconds }} {{ matrix_swiclops_identifier }} 2>/dev/null || true'
+ExecStop=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} rm {{ matrix_swiclops_identifier }} 2>/dev/null || true'
+ExecReload={{ devture_systemd_docker_base_host_command_docker }} exec {{ matrix_swiclops_identifier }} /bin/sh -c 'kill -HUP 1'
 Restart=always
 RestartSec=30
-SyslogIdentifier=matrix-swiclops
+SyslogIdentifier={{ matrix_swiclops_identifier }}
 
 [Install]
 WantedBy=multi-user.target

@@ -1,6 +1,6 @@
 ---
 - name: Ensure Swiclops Docker image is pulled
-  docker_image:
+  community.docker.docker_image:
     name: "{{ matrix_swiclops_docker_image }}"
     source: "{{ 'pull' if ansible_version.major > 2 or ansible_version.minor > 7 else omit }}"
     force_source: "{{ matrix_swiclops_docker_image_force_pull if ansible_version.major > 2 or ansible_version.minor >= 8 else omit }}"
@@ -33,6 +33,16 @@
     mode: 0770
     owner: "{{ matrix_user_username }}"
     group: "{{ matrix_user_groupname }}"
+
+- name: Ensure Swiclops support files installed
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/{{ item }}.j2"
+    dest: "{{ matrix_swiclops_base_path }}/{{ item }}"
+    mode: 0640
+    owner: "{{ matrix_user_username }}"
+    group: "{{ matrix_user_groupname }}"
+  with_items:
+    - labels
 
 - name: Ensure Swiclops configuration installed
   ansible.builtin.template:
