@@ -2,15 +2,6 @@
 
 - tags:
     - setup-all
-    - setup-nginx-proxy
-    - install-all
-    - install-nginx-proxy
-  block:
-    - when: matrix_swiclops_enabled | bool
-      ansible.builtin.include_tasks: "{{ role_path }}/tasks/inject_into_nginx_proxy.yml"
-
-- tags:
-    - setup-all
     - setup-swiclops
     - install-all
     - install-swiclops
@@ -25,8 +16,8 @@
     - when: not matrix_swiclops_enabled | bool
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup_uninstall.yml"
 
-- tags:
+- name: Mark matrix-swiclops role as executed
+  tags:
     - always
-  name: Mark matrix-swiclops role as executed
   ansible.builtin.set_fact:
     matrix_swiclops_role_executed: true

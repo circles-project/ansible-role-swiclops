@@ -1,0 +1,62 @@
+{% if matrix_swiclops_container_labels_traefik_enabled %}
+traefik.enable=true
+
+{% if matrix_swiclops_container_labels_traefik_docker_network %}
+traefik.docker.network={{ matrix_swiclops_container_labels_traefik_docker_network }}
+{% endif %}
+
+traefik.http.services.matrix-swiclops.loadbalancer.server.port={{ matrix_swiclops_port }}
+
+############################################################
+#                                                          #
+# Public UIA endpoints                                     #
+#                                                          #
+############################################################
+
+traefik.http.routers.matrix-swiclops-public-uia.rule={{ matrix_swiclops_container_labels_traefik_uia_rule }}
+
+{% if matrix_swiclops_container_labels_traefik_uia_priority | int > 0 %}
+traefik.http.routers.matrix-swiclops-public-uia.priority={{ matrix_swiclops_container_labels_traefik_uia_priority }}
+{% endif %}
+
+traefik.http.routers.matrix-swiclops-public-uia.service=matrix-swiclops
+traefik.http.routers.matrix-swiclops-public-uia.entrypoints={{ matrix_swiclops_container_labels_traefik_uia_entrypoints }}
+
+traefik.http.routers.matrix-swiclops-public-uia.tls={{ matrix_swiclops_container_labels_traefik_uia_tls | to_json }}
+{% if matrix_swiclops_container_labels_traefik_uia_tls %}
+traefik.http.routers.matrix-swiclops-public-uia.tls.certResolver={{ matrix_swiclops_container_labels_traefik_uia_tls_certResolver }}
+{% endif %}
+
+############################################################
+#                                                          #
+# /Public UIA endpoints                                    #
+#                                                          #
+############################################################
+
+
+{% if matrix_swiclops_container_labels_traefik_internal_uia_enabled %}
+############################################################
+#                                                          #
+# Internal UIA endpoints                                   #
+#                                                          #
+############################################################
+
+traefik.http.routers.matrix-swiclops-internal-uia.rule={{ matrix_swiclops_container_labels_traefik_internal_uia_rule }}
+
+{% if matrix_swiclops_container_labels_traefik_internal_uia_priority | int > 0 %}
+traefik.http.routers.matrix-swiclops-internal-uia.priority={{ matrix_swiclops_container_labels_traefik_internal_uia_priority }}
+{% endif %}
+
+traefik.http.routers.matrix-swiclops-internal-uia.service=matrix-swiclops
+traefik.http.routers.matrix-swiclops-internal-uia.entrypoints={{ matrix_swiclops_container_labels_traefik_internal_uia_entrypoints }}
+
+############################################################
+#                                                          #
+# /Internal UIA endpoints                                  #
+#                                                          #
+############################################################
+{% endif %}
+
+{% endif %} {# end of matrix_swiclops_container_labels_traefik_enabled if-check #}
+
+{{ matrix_swiclops_container_labels_additional_labels }}

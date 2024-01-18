@@ -18,7 +18,7 @@ uia:
 
 {% if matrix_swiclops_appstore_enabled %}
   apple_app_store:
-    apps: 
+    apps:
 {% for app in matrix_swiclops_appstore_apps %}
       - bundle_id: "{{ app.bundle_id }}"
         name: "{{ app.name }}"
