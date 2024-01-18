@@ -106,11 +106,11 @@ matrix_swiclops_matrix_password: "{{ '%s' | format(matrix_homeserver_generic_sec
 matrix_swiclops_database_type: "sqlite"
 matrix_swiclops_sqlite_filename: "/var/lib/swiclops/swiclops.sqlite"
 
-matrix_swiclops_postgres_username: "{{ matrix_swiclops_database_username }}"
-matrix_swiclops_postgres_password: "{{ matrix_swiclops_database_password }}"
-matrix_swiclops_postgres_hostname: "{{ matrix_swiclops_database_hostname }}"
+matrix_swiclops_postgres_username: "swiclops"
+matrix_swiclops_postgres_password: "{{ '%s' | format(matrix_homeserver_generic_secret_key) | password_hash('sha512', 'swiclops.db', rounds=655555) | to_uuid }}"
+matrix_swiclops_postgres_hostname: "{{ devture_postgres_connection_hostname if devture_postgres_enabled and matrix_swiclops_database_type == 'postgres' else '' }}"
 matrix_swiclops_postgres_port: 5432
-matrix_swiclops_postgres_database: "{{ matrix_swiclops_database_name }}"
+matrix_swiclops_postgres_database: "swiclops"
 
 matrix_swiclops_handle_register: true
 matrix_swiclops_handle_login: true
