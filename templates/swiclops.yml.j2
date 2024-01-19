@@ -139,6 +139,8 @@ uia:
     - path: "/devices/:deviceId"
       method: "PUT"
 
+  passthru_legacy_login: true
+
 database:
   type: "{{ matrix_swiclops_database_type }}"
 {% if matrix_swiclops_database_type == "sqlite" %}
