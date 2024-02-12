@@ -116,6 +116,16 @@ uia:
       flows:
         - stages: ["m.login.bsspeke-ecc.oprf", "m.login.bsspeke-ecc.verify", "m.enroll.bsspeke-ecc.oprf", "m.enroll.bsspeke-ecc.save"]
         - stages: ["m.login.bsspeke-ecc.oprf", "m.login.bsspeke-ecc.verify", "m.enroll.email.request_token", "m.enroll.email.submit_token"]
+        - stages: ["m.login.email.request_token", "m.login.email.submit_token", "m.enroll.bsspeke-ecc.oprf", "m.enroll.bsspeke-ecc.save"]
+    - path: "/account/auth/password"
+      method: "POST"
+      flows:
+        - stages: ["m.login.bsspeke-ecc.oprf", "m.login.bsspeke-ecc.verify", "m.enroll.bsspeke-ecc.oprf", "m.enroll.bsspeke-ecc.save"]
+        - stages: ["m.login.email.request_token", "m.login.email.submit_token", "m.enroll.bsspeke-ecc.oprf", "m.enroll.bsspeke-ecc.save"]
+    - path: "/account/auth/email"
+      method: "POST"
+      flows:
+        - stages: ["m.login.bsspeke-ecc.oprf", "m.login.bsspeke-ecc.verify", "m.enroll.email.request_token", "m.enroll.email.submit_token"]
     - path: "/account/deactivate"
       method: "POST"
     - path: "/account/password"
