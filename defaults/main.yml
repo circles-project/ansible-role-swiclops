@@ -89,6 +89,8 @@ matrix_swiclops_container_labels_additional_labels: ''
 
 matrix_swiclops_port: 8080
 
+matrix_swiclops_free_forever_enabled: true
+
 matrix_swiclops_appstore_enabled: false
 matrix_swiclops_appstore_certs:
   - "AppleComputerRootCertificate.cer"
