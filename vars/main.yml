@@ -17,5 +17,6 @@ matrix_swiclops_uia_endpoints:
   - devices/(.*)
   - delete_devices
   - keys/device_signing/upload
+  - refresh
 
 matrix_swiclops_tmp_directory_size_mb: 100
