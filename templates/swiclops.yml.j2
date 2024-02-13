@@ -102,9 +102,6 @@ uia:
 {% else %}
         - stages: ["m.login.bsspeke-ecc.oprf", "m.login.bsspeke-ecc.verify"]
 {% endif %}
-{% if matrix_swiclops_passthru_legacy_login %}
-        - {'type': 'm.login.password', 'stages': []}
-{% endif %}
     - path: "/login"
       method: "GET"
       flows: []
