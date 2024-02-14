@@ -174,7 +174,7 @@ uia:
 {% endif %}
         - stages: ["m.you_shall_not_pass"]
 
-  passthru_legacy_login: false
+  passthru_legacy_login: {{ matrix_swiclops_passthru_legacy_login }}
 
 database:
   type: "{{ matrix_swiclops_database_type }}"
