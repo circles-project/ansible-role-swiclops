@@ -164,13 +164,13 @@ uia:
       method: "POST"
       flows:
 {% if matrix_swiclops_free_forever_enabled %}
-        - stages: ["m.login.terms", "org.futo.subscriptions.free_forever"]
+        - stages: ["org.futo.subscriptions.free_forever"]
 {% endif %}
 {% if matrix_swiclops_appstore_enabled %}
-        - stages: ["m.login.terms", "org.futo.subscriptions.apple_storekit_v2"]
+        - stages: ["org.futo.subscriptions.apple_storekit_v2"]
 {% endif %}
 {% if matrix_swiclops_playstore_enabled %}
-        - stages: ["m.login.terms", "org.futo.subscriptions.google_play"]
+        - stages: ["org.futo.subscriptions.google_play"]
 {% endif %}
         - stages: ["m.you_shall_not_pass"]
 
