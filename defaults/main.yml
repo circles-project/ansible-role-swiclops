@@ -68,7 +68,7 @@ matrix_swiclops_container_labels_traefik_uia_tls: "{{ matrix_swiclops_container_
 matrix_swiclops_container_labels_traefik_uia_tls_certResolver: default  # noqa var-naming
 
 # For the /_swiclops/... namespace for subscription webhooks etc
-matrix_swiclops_container_labels_traefik_swiclops_path_prefix: "/_swiclops/"
+matrix_swiclops_container_labels_traefik_swiclops_path_prefix: "/_swiclops"
 matrix_swiclops_container_labels_traefik_swiclops_rule: "Host(`{{ matrix_server_fqn_matrix }}`) && PathPrefix(`{{ matrix_swiclops_container_labels_traefik_swiclops_path_prefix }}`)"
 matrix_swiclops_container_labels_traefik_swiclops_entrypoints: web-secure
 matrix_swiclops_container_labels_traefik_swiclops_tls: "{{ matrix_swiclops_container_labels_traefik_uia_entrypoints != 'web' }}"
