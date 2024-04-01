@@ -135,3 +135,7 @@ matrix_swiclops_log_level: "debug"
 matrix_swiclops_uia_default_flows:
   - stages: ["m.login.password"]
   - stages: ["m.login.bsspeke-ecc.oprf", "m.login.bsspeke-ecc.verify"]
+
+matrix_swiclops_login_flows:
+  - stages: ["m.login.bsspeke-ecc.oprf", "m.login.bsspeke-ecc.verify"]
+  - stages: ["m.login.email.request_token", "m.login.email.submit_token", "m.enroll.bsspeke-ecc.oprf", "m.enroll.bsspeke-ecc.save"]
