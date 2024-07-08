@@ -99,12 +99,12 @@ uia:
       flows:
 {% for flow in matrix_swiclops_login_flows %}
         - stages:
-{% if matrix_swiclops_policy_privacy_enabled or matrix_swiclops_policy_terms_enabled %}
-          - "m.login.terms"
-{% endif %}
 {% for stage in flow.stages %}
           - {{ stage }}
 {% endfor %}
+{% if matrix_swiclops_policy_privacy_enabled or matrix_swiclops_policy_terms_enabled %}
+          - "m.login.terms"
+{% endif %}
 {% endfor %}
     - path: "/login"
       method: "GET"
