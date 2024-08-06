@@ -4,7 +4,7 @@
 matrix_swiclops_role_executed: false
 
 matrix_swiclops_uia_endpoint_prefix: "/_matrix/client/"
-matrix_swiclops_uia_endpoint_version: "{version:(api/v1|r0|v3|unstable)}/"
+matrix_swiclops_uia_endpoint_version: "(?P<version>(api/v1|r0|v3|unstable))/"
 
 matrix_swiclops_uia_endpoints:
   - register
